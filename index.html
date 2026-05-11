@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥萨双叶大盘销售日报</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-page:#faf9f5;--bg-card:#ffffff;--bg-card2:#f3f1eb;--bg-hover:#eeece6;
+  --border:rgba(0,0,0,0.07);--border-med:rgba(0,0,0,0.13);
+  --text-primary:#1e1c18;--text-secondary:#6b6760;--text-muted:#a09d97;
+  --blue:#2f7de1;--blue-dim:rgba(47,125,225,0.10);
+  --green:#1a9e6e;--orange:#c47f10;
+  --radius-sm:6px;--radius-md:10px;
+  --line-cur:#2f7de1;--line-prev:#e2903b;--line-plan:#1a9e6e;
+}
+body{background:var(--bg-page);color:var(--text-primary);font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
+.page{max-width:1000px;margin:0 auto;padding:28px 20px 60px}
+
+/* Header */
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px;flex-wrap:wrap;gap:12px}
+.header h1{font-size:22px;font-weight:700;letter-spacing:.01em}
+.header .subtitle{font-size:12px;color:var(--text-muted);margin-top:3px}
+.report-date{font-size:12px;color:var(--text-muted);background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 12px;align-self:flex-start;margin-top:4px}
+
+/* Section */
+.section{margin-top:28px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.tag-marketing{background:rgba(47,125,225,0.12);color:#2f7de1}
+.tag-otc{background:rgba(196,127,16,0.12);color:#c47f10}
+.tag-huimin{background:rgba(26,158,110,0.12);color:#1a9e6e}
+.tag-ecom{background:rgba(180,60,200,0.12);color:#a030c0}
+.section-title{font-size:15px;font-weight:600}
+.divider{border:none;border-top:1px solid var(--border);margin:28px 0 0}
+
+/* Card */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 18px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+
+/* Legend */
+.legend-row{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;color:var(--text-secondary);align-items:center}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+/* Chart */
+.chart-wrap{position:relative;width:100%;height:260px}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab-btn{padding:5px 13px;font-size:12px;border:1px solid var(--border-med);border-radius:var(--radius-sm);cursor:pointer;background:var(--bg-card);color:var(--text-secondary);transition:all .18s;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{background:var(--bg-hover);color:var(--text-primary)}
+.tab-btn.active{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-med);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>奥萨双叶大盘销售日报</h1>
+    <div class="subtitle">Sales Daily Report · 数据统计截至今日</div>
+  </div>
+  <div class="report-date">2026-05-11</div>
+</div>
+
+<!-- 板块一：营销临床 -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-tag tag-marketing">营销临床</span>
+    <span class="section-title">临床渠道销售趋势</span>
+  </div>
+  <div class="card">
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-prev)"></span>前年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
+    </div>
+    <div class="chart-wrap"><canvas id="chartMarketing"></canvas></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 板块二：电商 -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-tag tag-ecom">电商</span>
+    <span class="section-title">电商板块销售趋势</span>
+  </div>
+  <div class="card">
+    <div class="tabs" id="ecomTabs">
+      <button class="tab-btn active" data-tab="ec-total">总销售</button>
+      <button class="tab-btn" data-tab="ec-drug">药品电商</button>
+      <button class="tab-btn" data-tab="ec-health">大健康</button>
+      <button class="tab-btn" data-tab="ec-pharma">大药房</button>
+    </div>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
+    </div>
+    <div class="chart-wrap"><canvas id="chartEcom"></canvas></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 板块三：惠民 -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-tag tag-huimin">惠民</span>
+    <span class="section-title">惠民板块销售趋势</span>
+  </div>
+  <div class="card">
+    <div class="tabs" id="huiminTabs">
+      <button class="tab-btn active" data-tab="hm-total">总销售</button>
+      <button class="tab-btn" data-tab="hm-rc">荣成社区健康家园</button>
+      <button class="tab-btn" data-tab="hm-wy">婺源/南昌社区健康家园</button>
+      <button class="tab-btn" data-tab="hm-lyg1">连云港-赣榆/灌南</button>
+      <button class="tab-btn" data-tab="hm-lyg2">连云港-灌云/城区</button>
+      <button class="tab-btn" data-tab="hm-lyg3">连云港-东海</button>
+      <button class="tab-btn" data-tab="hm-lyg4">连云港-项目办&行政后勤</button>
+      <button class="tab-btn" data-tab="hm-aq">安庆/池州社区健康家园</button>
+      <button class="tab-btn" data-tab="hm-lx">临夏社区健康家园</button>
+      <button class="tab-btn" data-tab="hm-bd">保定-西南区</button>
+    </div>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
+    </div>
+    <div class="chart-wrap"><canvas id="chartHuimin"></canvas></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 板块四：OTC -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-tag tag-otc">OTC</span>
+    <span class="section-title">OTC渠道销售趋势</span>
+  </div>
+  <div class="card">
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
+      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
+    </div>
+    <div class="chart-wrap"><canvas id="chartOTC"></canvas></div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── 通用月份标签 ──
+const MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+// ── 图表颜色 ──
+const C_CUR   = '#2f7de1';
+const C_PREV  = '#e2903b';
+const C_PLAN  = '#1a9e6e';
+
+// ── 辅助：生成模拟数据 ──
+function randArr(base, spread, len=12) {
+  return Array.from({length:len}, (_,i) => +(base + (Math.sin(i*0.7+Math.random())*spread + (Math.random()-0.4)*spread*0.6)).toFixed(1));
+}
+
+// ── 通用图表配置 ──
+function makeDatasets(cur, prev, plan, prevLabel='去年销售额') {
+  return [
+    {
+      label:'今年销售额',
+      data: cur,
+      borderColor: C_CUR,
+      backgroundColor: 'rgba(47,125,225,0.07)',
+      pointBackgroundColor: C_CUR,
+      pointRadius: 3, pointHoverRadius: 5,
+      tension: 0.35, fill: false, borderWidth: 2
+    },
+    {
+      label:prevLabel,
+      data: prev,
+      borderColor: C_PREV,
+      backgroundColor: 'rgba(226,144,59,0.07)',
+      pointBackgroundColor: C_PREV,
+      pointRadius: 3, pointHoverRadius: 5,
+      tension: 0.35, fill: false, borderWidth: 2
+    },
+    {
+      label:'今年月度计划',
+      data: plan,
+      borderColor: C_PLAN,
+      backgroundColor: 'transparent',
+      pointBackgroundColor: C_PLAN,
+      pointRadius: 3, pointHoverRadius: 5,
+      tension: 0.35, fill: false, borderWidth: 2,
+      borderDash: [5,4]
+    }
+  ];
+}
+
+function makeOptions() {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {mode:'index', intersect:false},
+    plugins: {
+      legend: {display:false},
+      tooltip: {
+        backgroundColor: '#fff',
+        borderColor: 'rgba(0,0,0,0.10)',
+        borderWidth: 1,
+        titleColor: '#1e1c18',
+        bodyColor: '#6b6760',
+        callbacks: {
+          label: ctx => `${ctx.dataset.label}：${ctx.parsed.y} 万元`
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {color:'#a09d97', font:{size:11}},
+        grid: {color:'rgba(0,0,0,0.05)'}
+      },
+      y: {
+        ticks: {color:'#a09d97', font:{size:11}, callback: v => v+'万'},
+        grid: {color:'rgba(0,0,0,0.06)'},
+        beginAtZero: false,
+        title: {display:true, text:'万元', color:'#a09d97', font:{size:11}}
+      }
+    }
+  };
+}
+
+// ══════════════════════════════
+// 板块一：营销临床
+// ══════════════════════════════
+const mktCur  = [42,38,55,61,58,70,65,72,68,80,75,88];
+const mktPrev = [35,32,48,52,50,61,58,63,60,72,68,78];
+const mktPlan = [45,45,58,65,65,72,70,75,75,82,80,90];
+
+new Chart(document.getElementById('chartMarketing'), {
+  type:'line',
+  data:{ labels:MONTHS, datasets:makeDatasets(mktCur,mktPrev,mktPlan,'前年销售额') },
+  options:makeOptions()
+});
+
+// ══════════════════════════════
+// 板块二：OTC
+// ══════════════════════════════
+const otcCur  = [28,25,32,38,40,45,43,48,52,55,58,62];
+const otcPrev = [22,20,28,32,33,39,37,41,44,48,50,55];
+const otcPlan = [30,30,35,40,42,48,46,50,55,58,60,65];
+
+new Chart(document.getElementById('chartOTC'), {
+  type:'line',
+  data:{ labels:MONTHS, datasets:makeDatasets(otcCur,otcPrev,otcPlan) },
+  options:makeOptions()
+});
+
+// ══════════════════════════════
+// 板块三：惠民 — 各tab数据
+// ══════════════════════════════
+const hmData = {
+  'hm-total':  { cur: [110,102,128,138,140,155,150,162,168,180,175,192], prev: [95,88,112,122,124,138,132,144,150,162,158,172], plan: [115,115,132,142,144,158,155,165,172,184,180,196] },
+  'hm-rc':     { cur: randArr(18,4), prev: randArr(15,4), plan: randArr(20,3) },
+  'hm-wy':     { cur: randArr(14,3), prev: randArr(12,3), plan: randArr(16,3) },
+  'hm-lyg1':   { cur: randArr(12,3), prev: randArr(10,3), plan: randArr(13,2) },
+  'hm-lyg2':   { cur: randArr(10,2), prev: randArr(8,2),  plan: randArr(11,2) },
+  'hm-lyg3':   { cur: randArr(8,2),  prev: randArr(7,2),  plan: randArr(9,2) },
+  'hm-lyg4':   { cur: randArr(6,2),  prev: randArr(5,2),  plan: randArr(7,2) },
+  'hm-aq':     { cur: randArr(16,3), prev: randArr(13,3), plan: randArr(17,3) },
+  'hm-lx':     { cur: randArr(9,2),  prev: randArr(7,2),  plan: randArr(10,2) },
+  'hm-bd':     { cur: randArr(11,3), prev: randArr(9,3),  plan: randArr(12,2) },
+};
+
+let hmChart = new Chart(document.getElementById('chartHuimin'), {
+  type:'line',
+  data:{ labels:MONTHS, datasets:makeDatasets(hmData['hm-total'].cur, hmData['hm-total'].prev, hmData['hm-total'].plan) },
+  options:makeOptions()
+});
+
+document.getElementById('huiminTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn'); if(!btn) return;
+  document.querySelectorAll('#huiminTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const key = btn.dataset.tab;
+  const d = hmData[key];
+  hmChart.data.datasets = makeDatasets(d.cur, d.prev, d.plan);
+  hmChart.update();
+});
+
+// ══════════════════════════════
+// 板块四：电商 — 各tab数据
+// ══════════════════════════════
+const ecData = {
+  'ec-total': { cur: [75,68,88,95,98,110,105,115,120,130,125,140], prev: [62,56,74,82,84,95,90,100,105,115,110,125], plan: [78,78,92,100,102,114,108,118,124,134,130,144] },
+  'ec-drug':  { cur: randArr(32,6), prev: randArr(26,6), plan: randArr(34,5) },
+  'ec-health':{ cur: randArr(24,5), prev: randArr(20,5), plan: randArr(26,4) },
+  'ec-pharma':{ cur: randArr(18,4), prev: randArr(15,4), plan: randArr(20,3) },
+};
+
+let ecChart = new Chart(document.getElementById('chartEcom'), {
+  type:'line',
+  data:{ labels:MONTHS, datasets:makeDatasets(ecData['ec-total'].cur, ecData['ec-total'].prev, ecData['ec-total'].plan) },
+  options:makeOptions()
+});
+
+document.getElementById('ecomTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn'); if(!btn) return;
+  document.querySelectorAll('#ecomTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const key = btn.dataset.tab;
+  const d = ecData[key];
+  ecChart.data.datasets = makeDatasets(d.cur, d.prev, d.plan);
+  ecChart.update();
+});
+</script>
+</body>
+</html>
