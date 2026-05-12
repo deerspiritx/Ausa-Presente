@@ -3,55 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>奥萨双叶大盘销售日报</title>
+<title>奥萨双叶大盘销售日报 · 方案五-中国传统色</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg-page:#faf9f5;--bg-card:#ffffff;--bg-card2:#f3f1eb;--bg-hover:#eeece6;
   --border:rgba(0,0,0,0.07);--border-med:rgba(0,0,0,0.13);
   --text-primary:#1e1c18;--text-secondary:#6b6760;--text-muted:#a09d97;
-  --blue:#2f7de1;--blue-dim:rgba(47,125,225,0.10);
-  --green:#1a9e6e;--orange:#c47f10;
+  --blue:#2B5F8E;--blue-dim:rgba(43,95,142,0.10);
   --radius-sm:6px;--radius-md:10px;
-  --line-cur:#2f7de1;--line-prev:#e2903b;--line-plan:#1a9e6e;
 }
 body{background:var(--bg-page);color:var(--text-primary);font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
-.page{max-width:1000px;margin:0 auto;padding:28px 20px 60px}
+.page{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
 
-/* Header */
 .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px;flex-wrap:wrap;gap:12px}
 .header h1{font-size:22px;font-weight:700;letter-spacing:.01em}
 .header .subtitle{font-size:12px;color:var(--text-muted);margin-top:3px}
 .report-date{font-size:12px;color:var(--text-muted);background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 12px;align-self:flex-start;margin-top:4px}
 
-/* Section */
 .section{margin-top:28px}
 .section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.section-tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.tag-marketing{background:rgba(47,125,225,0.12);color:#2f7de1}
-.tag-otc{background:rgba(196,127,16,0.12);color:#c47f10}
-.tag-huimin{background:rgba(26,158,110,0.12);color:#1a9e6e}
-.tag-ecom{background:rgba(180,60,200,0.12);color:#a030c0}
+.section-tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.tag-marketing{background:rgba(43,95,142,0.12);color:#2B5F8E}
+.tag-otc{background:rgba(212,98,42,0.13);color:#D4622A}
+.tag-huimin{background:rgba(78,133,90,0.13);color:#4E855A}
+.tag-ecom{background:rgba(78,133,90,0.13);color:#3f704a}
 .section-title{font-size:15px;font-weight:600}
 .divider{border:none;border-top:1px solid var(--border);margin:28px 0 0}
 
-/* Card */
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 18px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 
-/* Legend */
-.legend-row{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;color:var(--text-secondary);align-items:center}
-.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.legend-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:11.5px;color:var(--text-secondary);align-items:center}
+.leg{display:flex;align-items:center;gap:5px}
+.leg-solid{display:inline-block;width:18px;height:2.5px;border-radius:2px;vertical-align:middle}
+.leg-dash{display:inline-block;width:18px;height:0;border-top:2px dashed;vertical-align:middle}
+.leg-bar{display:inline-block;width:11px;height:12px;border-radius:2px;vertical-align:middle}
+.leg-sep{width:1px;height:14px;background:var(--border-med);margin:0 2px;flex-shrink:0}
 
-/* Chart */
-.chart-wrap{position:relative;width:100%;height:260px}
+.chart-note{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+.chart-wrap{position:relative;width:100%;height:300px}
 
-/* Tabs */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .tab-btn{padding:5px 13px;font-size:12px;border:1px solid var(--border-med);border-radius:var(--radius-sm);cursor:pointer;background:var(--bg-card);color:var(--text-secondary);transition:all .18s;font-family:inherit;white-space:nowrap}
 .tab-btn:hover{background:var(--bg-hover);color:var(--text-primary)}
 .tab-btn.active{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
 
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -63,31 +58,28 @@ body{background:var(--bg-page);color:var(--text-primary);font-family:'PingFang S
 
 <div class="header">
   <div>
-    <h1>奥萨双叶大盘销售日报</h1>
+    <h1>奥萨双叶大盘销售日报 · 方案五-中国传统色</h1>
     <div class="subtitle">Sales Daily Report · 数据统计截至今日</div>
   </div>
   <div class="report-date">2026-05-11</div>
 </div>
 
-<!-- 板块一：营销临床 -->
+<!-- 营销临床 -->
 <div class="section">
   <div class="section-header">
     <span class="section-tag tag-marketing">营销临床</span>
     <span class="section-title">临床渠道销售趋势</span>
   </div>
   <div class="card">
-    <div class="legend-row">
-      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-prev)"></span>前年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
-    </div>
-    <div class="chart-wrap"><canvas id="chartMarketing"></canvas></div>
+    <div class="legend-row" id="mktLegend"></div>
+    <div class="chart-note">左轴：每日销售额（万元） · 右轴：月度累计（万元）</div>
+    <div class="chart-wrap"><canvas id="chartMkt"></canvas></div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- 板块二：电商 -->
+<!-- 电商 -->
 <div class="section">
   <div class="section-header">
     <span class="section-tag tag-ecom">电商</span>
@@ -95,23 +87,20 @@ body{background:var(--bg-page);color:var(--text-primary);font-family:'PingFang S
   </div>
   <div class="card">
     <div class="tabs" id="ecomTabs">
-      <button class="tab-btn active" data-tab="ec-total">总销售</button>
+      <button class="tab-btn active" data-tab="ec-total">合计</button>
       <button class="tab-btn" data-tab="ec-drug">药品电商</button>
       <button class="tab-btn" data-tab="ec-health">大健康</button>
       <button class="tab-btn" data-tab="ec-pharma">大药房</button>
     </div>
-    <div class="legend-row">
-      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
-    </div>
-    <div class="chart-wrap"><canvas id="chartEcom"></canvas></div>
+    <div class="legend-row" id="ecLegend"></div>
+    <div class="chart-note">左轴：每日销售额（万元） · 右轴：月度累计（万元）</div>
+    <div class="chart-wrap"><canvas id="chartEc"></canvas></div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- 板块三：惠民 -->
+<!-- 惠民 -->
 <div class="section">
   <div class="section-header">
     <span class="section-tag tag-huimin">惠民</span>
@@ -119,210 +108,323 @@ body{background:var(--bg-page);color:var(--text-primary);font-family:'PingFang S
   </div>
   <div class="card">
     <div class="tabs" id="huiminTabs">
-      <button class="tab-btn active" data-tab="hm-total">总销售</button>
+      <button class="tab-btn active" data-tab="hm-total">合计</button>
       <button class="tab-btn" data-tab="hm-rc">荣成社区健康家园</button>
       <button class="tab-btn" data-tab="hm-wy">婺源/南昌社区健康家园</button>
       <button class="tab-btn" data-tab="hm-lyg1">连云港-赣榆/灌南</button>
       <button class="tab-btn" data-tab="hm-lyg2">连云港-灌云/城区</button>
       <button class="tab-btn" data-tab="hm-lyg3">连云港-东海</button>
-      <button class="tab-btn" data-tab="hm-lyg4">连云港-项目办&行政后勤</button>
+      <button class="tab-btn" data-tab="hm-lyg4">连云港-项目办&amp;行政后勤</button>
       <button class="tab-btn" data-tab="hm-aq">安庆/池州社区健康家园</button>
       <button class="tab-btn" data-tab="hm-lx">临夏社区健康家园</button>
       <button class="tab-btn" data-tab="hm-bd">保定-西南区</button>
     </div>
-    <div class="legend-row">
-      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
-    </div>
-    <div class="chart-wrap"><canvas id="chartHuimin"></canvas></div>
+    <div class="legend-row" id="hmLegend"></div>
+    <div class="chart-note">左轴：每日销售额（万元） · 右轴：月度累计（万元）</div>
+    <div class="chart-wrap"><canvas id="chartHm"></canvas></div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- 板块四：OTC -->
+<!-- OTC -->
 <div class="section">
   <div class="section-header">
     <span class="section-tag tag-otc">OTC</span>
     <span class="section-title">OTC渠道销售趋势</span>
   </div>
   <div class="card">
-    <div class="legend-row">
-      <span><span class="legend-dot" style="background:var(--line-cur)"></span>今年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-prev)"></span>去年销售额</span>
-      <span><span class="legend-dot" style="background:var(--line-plan);border-radius:0;height:2px;width:16px;display:inline-block;vertical-align:middle;border-top:2px dashed var(--line-plan)"></span>今年月度计划</span>
-    </div>
-    <div class="chart-wrap"><canvas id="chartOTC"></canvas></div>
+    <div class="legend-row" id="otcLegend"></div>
+    <div class="chart-note">左轴：每日销售额（万元） · 右轴：月度累计（万元）</div>
+    <div class="chart-wrap"><canvas id="chartOtc"></canvas></div>
   </div>
 </div>
 
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-// ── 通用月份标签 ──
-const MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+// ════════════════════════════════════
+//  基础常量
+// ════════════════════════════════════
+const YEAR = 2026;
+const TODAY = new Date('2026-05-11');
+const TODAY_IDX = Math.round((TODAY - new Date(YEAR,0,1)) / 86400000); // 130
 
-// ── 图表颜色 ──
-const C_CUR   = '#2f7de1';
-const C_PREV  = '#e2903b';
-const C_PLAN  = '#1a9e6e';
+// 全年日期标签
+const YEAR_LABELS = [];
+for(let d=new Date(YEAR,0,1); d<=new Date(YEAR,11,31); d.setDate(d.getDate()+1))
+  YEAR_LABELS.push(`${d.getMonth()+1}/${d.getDate()}`);
+const N = YEAR_LABELS.length; // 365
 
-// ── 辅助：生成模拟数据 ──
-function randArr(base, spread, len=12) {
-  return Array.from({length:len}, (_,i) => +(base + (Math.sin(i*0.7+Math.random())*spread + (Math.random()-0.4)*spread*0.6)).toFixed(1));
+// 每月信息
+const MONTHS_META = Array.from({length:12},(_,m)=>{
+  const start = Math.round((new Date(YEAR,m,1)-new Date(YEAR,0,1))/86400000);
+  const days  = new Date(YEAR,m+1,0).getDate();
+  return { start, days, end: start+days-1, mid: start+Math.floor(days/2) };
+});
+
+// 颜色
+const C = {
+  yiye:'#2B5F8E', anye:'#D4622A', total:'#4E855A',
+  yiye_p:'rgba(43,95,142,0.35)', anye_p:'rgba(212,98,42,0.35)', total_p:'rgba(78,133,90,0.35)',
+  plan:'rgba(245,222,179,0.80)',
+  done:'rgba(193,68,14,0.78)',
+  planBorder:'#F5DEB3',
+  doneBorder:'#C1440E',
+};
+
+// ════════════════════════════════════
+//  LCG 伪随机
+// ════════════════════════════════════
+function lcg(seed){
+  let s = seed >>> 0;
+  return ()=>{ s=(Math.imul(1664525,s)+1013904223)>>>0; return s/4294967296; };
 }
 
-// ── 通用图表配置 ──
-function makeDatasets(cur, prev, plan, prevLabel='去年销售额') {
+// ════════════════════════════════════
+//  每日数据生成
+// ════════════════════════════════════
+function genDaily(base, amp, seedN, isCur){
+  const rng = lcg(seedN);
+  for(let i=0;i<10;i++) rng();
+  const arr=[]; let prev=base;
+  for(let i=0;i<N;i++){
+    if(isCur && i>TODAY_IDX){ arr.push(null); continue; }
+    const seas = Math.sin(i/N*2*Math.PI-0.5)*amp*0.35;
+    const noise= (rng()-0.48)*amp;
+    prev = Math.max(base*0.25, prev*0.91 + base*0.09 + seas*0.08 + noise*0.18);
+    arr.push(+prev.toFixed(2));
+  }
+  return arr;
+}
+
+// ════════════════════════════════════
+//  月度进度柱（并排，右y轴）
+//  每月两根柱：[计划, 已完成]，各放在月中±2天
+// ════════════════════════════════════
+function buildBarArrays(totalCurArr, totalPrevArr){
+  // 两组稀疏数组，长度=N，只在指定位置有值
+  const planArr = new Array(N).fill(null);
+  const doneArr = new Array(N).fill(null);
+
+  MONTHS_META.forEach(({start,days,end,mid},m)=>{
+    // 计划 = 2025年当月总和 × 1.12
+    const plan = totalPrevArr.slice(start,end+1).reduce((a,v)=>a+(v||0),0)*1.12;
+    // 已完成 = 2026年当月到今日累计
+    const doneEnd = Math.min(end, TODAY_IDX);
+    const done = start>TODAY_IDX ? 0 :
+      totalCurArr.slice(start,doneEnd+1).reduce((a,v)=>a+(v||0),0);
+
+    // 计划柱放 mid-1，已完成柱放 mid+1（相邻两格，视觉上并排）
+    planArr[mid-1] = +plan.toFixed(1);
+    doneArr[mid+1] = +done.toFixed(1);
+  });
+  return {planArr, doneArr};
+}
+
+// ════════════════════════════════════
+//  生成板块数据
+// ════════════════════════════════════
+function makeSection(bases, s0){
+  const cur={
+    yiye:  genDaily(bases.yiye,  bases.yiye*0.55,  s0,   true),
+    anye:  genDaily(bases.anye,  bases.anye*0.55,  s0+1, true),
+    total: genDaily(bases.total, bases.total*0.55, s0+2, true),
+  };
+  const prev={
+    yiye:  genDaily(bases.yiye*0.86,  bases.yiye*0.5,  s0+3, false),
+    anye:  genDaily(bases.anye*0.86,  bases.anye*0.5,  s0+4, false),
+    total: genDaily(bases.total*0.86, bases.total*0.5, s0+5, false),
+  };
+  const bars = buildBarArrays(cur.total, prev.total);
+  return {cur, prev, bars};
+}
+
+// 板块数据
+const SECTIONS = {
+  mkt: makeSection({yiye:2.8, anye:1.5, total:4.3}, 100),
+  otc: makeSection({yiye:1.8, anye:1.0, total:2.8}, 200),
+  ec:{
+    'ec-total': makeSection({yiye:3.2, anye:2.0, total:5.2}, 300),
+    'ec-drug':  makeSection({yiye:2.0, anye:1.2, total:3.2}, 310),
+    'ec-health':makeSection({yiye:1.2, anye:0.8, total:2.0}, 320),
+    'ec-pharma':makeSection({yiye:1.0, anye:0.6, total:1.6}, 330),
+  },
+  hm:{
+    'hm-total': makeSection({yiye:5.0, anye:3.0, total:8.0}, 400),
+    'hm-rc':    makeSection({yiye:1.2, anye:0.7, total:1.9}, 410),
+    'hm-wy':    makeSection({yiye:0.9, anye:0.5, total:1.4}, 420),
+    'hm-lyg1':  makeSection({yiye:0.8, anye:0.4, total:1.2}, 430),
+    'hm-lyg2':  makeSection({yiye:0.7, anye:0.4, total:1.1}, 440),
+    'hm-lyg3':  makeSection({yiye:0.6, anye:0.3, total:0.9}, 450),
+    'hm-lyg4':  makeSection({yiye:0.4, anye:0.2, total:0.6}, 460),
+    'hm-aq':    makeSection({yiye:1.0, anye:0.6, total:1.6}, 470),
+    'hm-lx':    makeSection({yiye:0.6, anye:0.3, total:0.9}, 480),
+    'hm-bd':    makeSection({yiye:0.7, anye:0.4, total:1.1}, 490),
+  },
+};
+
+// ════════════════════════════════════
+//  构建 datasets
+// ════════════════════════════════════
+function mkLine(label, data, color, dashed){
+  return {
+    type:'line', label, data,
+    borderColor:color, backgroundColor:'transparent',
+    pointRadius:0, pointHoverRadius:4,
+    pointBackgroundColor:color,
+    tension:0.4, fill:false,
+    borderWidth: dashed?1.5:2,
+    borderDash:  dashed?[5,4]:[],
+    spanGaps:false,
+    order: dashed?2:1,
+    yAxisID:'yLine',
+  };
+}
+
+function mkBar(label, data, bg, border){
+  return {
+    type:'bar', label, data,
+    backgroundColor:bg, borderColor:border,
+    borderWidth:1, borderRadius:3,
+    barThickness:8,
+    order:3,
+    yAxisID:'yBar',
+    skipNull:true,
+  };
+}
+
+function buildDatasets(sec, anyePrevYear='2025年'){
   return [
-    {
-      label:'今年销售额',
-      data: cur,
-      borderColor: C_CUR,
-      backgroundColor: 'rgba(47,125,225,0.07)',
-      pointBackgroundColor: C_CUR,
-      pointRadius: 3, pointHoverRadius: 5,
-      tension: 0.35, fill: false, borderWidth: 2
-    },
-    {
-      label:prevLabel,
-      data: prev,
-      borderColor: C_PREV,
-      backgroundColor: 'rgba(226,144,59,0.07)',
-      pointBackgroundColor: C_PREV,
-      pointRadius: 3, pointHoverRadius: 5,
-      tension: 0.35, fill: false, borderWidth: 2
-    },
-    {
-      label:'今年月度计划',
-      data: plan,
-      borderColor: C_PLAN,
-      backgroundColor: 'transparent',
-      pointBackgroundColor: C_PLAN,
-      pointRadius: 3, pointHoverRadius: 5,
-      tension: 0.35, fill: false, borderWidth: 2,
-      borderDash: [5,4]
-    }
+    mkBar('月度计划', sec.bars.planArr, C.plan, C.planBorder),
+    mkBar('月度已完成', sec.bars.doneArr, C.done, C.doneBorder),
+    mkLine('2026年·依叶',  sec.cur.yiye,   C.yiye,   false),
+    mkLine('2026年·氨叶',  sec.cur.anye,   C.anye,   false),
+    mkLine('2026年·合计',  sec.cur.total,  C.total,  false),
+    mkLine('2025年·依叶',  sec.prev.yiye,  C.yiye_p, true),
+    mkLine(`${anyePrevYear}·氨叶`,  sec.prev.anye,  C.anye_p, true),
+    mkLine('2025年·合计',  sec.prev.total, C.total_p,true),
   ];
 }
 
-function makeOptions() {
+// ════════════════════════════════════
+//  Options
+// ════════════════════════════════════
+function makeOpts(){
   return {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: {mode:'index', intersect:false},
-    plugins: {
-      legend: {display:false},
-      tooltip: {
-        backgroundColor: '#fff',
-        borderColor: 'rgba(0,0,0,0.10)',
-        borderWidth: 1,
-        titleColor: '#1e1c18',
-        bodyColor: '#6b6760',
-        callbacks: {
-          label: ctx => `${ctx.dataset.label}：${ctx.parsed.y} 万元`
+    responsive:true, maintainAspectRatio:false,
+    animation:{duration:250},
+    interaction:{mode:'index', intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#fff',
+        borderColor:'rgba(0,0,0,0.10)',
+        borderWidth:1,
+        titleColor:'#1e1c18',
+        bodyColor:'#6b6760',
+        callbacks:{
+          title: items => '日期：'+(YEAR_LABELS[items[0].dataIndex]||''),
+          label: ctx => {
+            const v=ctx.parsed.y;
+            if(v===null||v===undefined) return null;
+            const unit = ctx.dataset.yAxisID==='yBar' ? '万（月累计）' : '万';
+            return `${ctx.dataset.label}：${v} ${unit}`;
+          }
         }
       }
     },
-    scales: {
-      x: {
-        ticks: {color:'#a09d97', font:{size:11}},
-        grid: {color:'rgba(0,0,0,0.05)'}
+    scales:{
+      x:{
+        type:'category',
+        ticks:{
+          color:'#a09d97', font:{size:10}, maxRotation:0,
+          autoSkip:false,
+          callback(val,idx){
+            const lbl=YEAR_LABELS[idx]||'';
+            return lbl.endsWith('/1') ? lbl.split('/')[0]+'月' : '';
+          }
+        },
+        grid:{color:'rgba(0,0,0,0.04)'},
       },
-      y: {
-        ticks: {color:'#a09d97', font:{size:11}, callback: v => v+'万'},
-        grid: {color:'rgba(0,0,0,0.06)'},
-        beginAtZero: false,
-        title: {display:true, text:'万元', color:'#a09d97', font:{size:11}}
-      }
+      // 左轴：折线（每日万元）
+      yLine:{
+        type:'linear', position:'left',
+        beginAtZero:false,
+        ticks:{color:'#a09d97', font:{size:10}, callback:v=>v+'万'},
+        grid:{color:'rgba(0,0,0,0.06)'},
+        title:{display:true, text:'每日（万元）', color:'#a09d97', font:{size:10}},
+      },
+      // 右轴：柱状（月累计）
+      yBar:{
+        type:'linear', position:'right',
+        beginAtZero:true,
+        ticks:{color:'#C1440E', font:{size:10}, callback:v=>v+'万'},
+        grid:{drawOnChartArea:false},
+        title:{display:true, text:'月累计（万元）', color:'#C1440E', font:{size:10}},
+      },
     }
   };
 }
 
-// ══════════════════════════════
-// 板块一：营销临床
-// ══════════════════════════════
-const mktCur  = [42,38,55,61,58,70,65,72,68,80,75,88];
-const mktPrev = [35,32,48,52,50,61,58,63,60,72,68,78];
-const mktPlan = [45,45,58,65,65,72,70,75,75,82,80,90];
+// ════════════════════════════════════
+//  图例
+// ════════════════════════════════════
+function renderLegend(id, anyePrevYear='2025年'){
+  document.getElementById(id).innerHTML=[
+    {label:'2026年·依叶', color:C.yiye,    dash:false},
+    {label:'2026年·氨叶', color:C.anye,    dash:false},
+    {label:'2026年·合计', color:C.total,   dash:false},
+    'sep',
+    {label:'2025年·依叶', color:C.yiye_p,  dash:true},
+    {label:`${anyePrevYear}·氨叶`, color:C.anye_p,  dash:true},
+    {label:'2025年·合计', color:C.total_p, dash:true},
+    'sep',
+    {label:'月度计划',   bar:true, bg:C.plan, bd:C.planBorder},
+    {label:'月度已完成', bar:true, bg:C.done, bd:C.doneBorder},
+  ].map(it=>{
+    if(it==='sep') return `<span class="leg-sep"></span>`;
+    if(it.bar) return `<span class="leg"><span class="leg-bar" style="background:${it.bg};border:1.5px solid ${it.bd}"></span>${it.label}</span>`;
+    const ico = it.dash
+      ? `<span class="leg-dash" style="border-color:${it.color}"></span>`
+      : `<span class="leg-solid" style="background:${it.color}"></span>`;
+    return `<span class="leg">${ico}<span style="color:${it.color};font-weight:500">${it.label}</span></span>`;
+  }).join('');
+}
 
-new Chart(document.getElementById('chartMarketing'), {
-  type:'line',
-  data:{ labels:MONTHS, datasets:makeDatasets(mktCur,mktPrev,mktPlan,'前年销售额') },
-  options:makeOptions()
-});
+// ════════════════════════════════════
+//  初始化
+// ════════════════════════════════════
+function initChart(id, datasets){
+  return new Chart(document.getElementById(id),{
+    type:'bar', data:{labels:YEAR_LABELS, datasets}, options:makeOpts()
+  });
+}
 
-// ══════════════════════════════
-// 板块二：OTC
-// ══════════════════════════════
-const otcCur  = [28,25,32,38,40,45,43,48,52,55,58,62];
-const otcPrev = [22,20,28,32,33,39,37,41,44,48,50,55];
-const otcPlan = [30,30,35,40,42,48,46,50,55,58,60,65];
+renderLegend('mktLegend', '2024年');
+initChart('chartMkt', buildDatasets(SECTIONS.mkt, '2024年'));
 
-new Chart(document.getElementById('chartOTC'), {
-  type:'line',
-  data:{ labels:MONTHS, datasets:makeDatasets(otcCur,otcPrev,otcPlan) },
-  options:makeOptions()
-});
+renderLegend('otcLegend');
+initChart('chartOtc', buildDatasets(SECTIONS.otc));
 
-// ══════════════════════════════
-// 板块三：惠民 — 各tab数据
-// ══════════════════════════════
-const hmData = {
-  'hm-total':  { cur: [110,102,128,138,140,155,150,162,168,180,175,192], prev: [95,88,112,122,124,138,132,144,150,162,158,172], plan: [115,115,132,142,144,158,155,165,172,184,180,196] },
-  'hm-rc':     { cur: randArr(18,4), prev: randArr(15,4), plan: randArr(20,3) },
-  'hm-wy':     { cur: randArr(14,3), prev: randArr(12,3), plan: randArr(16,3) },
-  'hm-lyg1':   { cur: randArr(12,3), prev: randArr(10,3), plan: randArr(13,2) },
-  'hm-lyg2':   { cur: randArr(10,2), prev: randArr(8,2),  plan: randArr(11,2) },
-  'hm-lyg3':   { cur: randArr(8,2),  prev: randArr(7,2),  plan: randArr(9,2) },
-  'hm-lyg4':   { cur: randArr(6,2),  prev: randArr(5,2),  plan: randArr(7,2) },
-  'hm-aq':     { cur: randArr(16,3), prev: randArr(13,3), plan: randArr(17,3) },
-  'hm-lx':     { cur: randArr(9,2),  prev: randArr(7,2),  plan: randArr(10,2) },
-  'hm-bd':     { cur: randArr(11,3), prev: randArr(9,3),  plan: randArr(12,2) },
-};
-
-let hmChart = new Chart(document.getElementById('chartHuimin'), {
-  type:'line',
-  data:{ labels:MONTHS, datasets:makeDatasets(hmData['hm-total'].cur, hmData['hm-total'].prev, hmData['hm-total'].plan) },
-  options:makeOptions()
-});
-
-document.getElementById('huiminTabs').addEventListener('click', e => {
-  const btn = e.target.closest('.tab-btn'); if(!btn) return;
-  document.querySelectorAll('#huiminTabs .tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const key = btn.dataset.tab;
-  const d = hmData[key];
-  hmChart.data.datasets = makeDatasets(d.cur, d.prev, d.plan);
-  hmChart.update();
-});
-
-// ══════════════════════════════
-// 板块四：电商 — 各tab数据
-// ══════════════════════════════
-const ecData = {
-  'ec-total': { cur: [75,68,88,95,98,110,105,115,120,130,125,140], prev: [62,56,74,82,84,95,90,100,105,115,110,125], plan: [78,78,92,100,102,114,108,118,124,134,130,144] },
-  'ec-drug':  { cur: randArr(32,6), prev: randArr(26,6), plan: randArr(34,5) },
-  'ec-health':{ cur: randArr(24,5), prev: randArr(20,5), plan: randArr(26,4) },
-  'ec-pharma':{ cur: randArr(18,4), prev: randArr(15,4), plan: randArr(20,3) },
-};
-
-let ecChart = new Chart(document.getElementById('chartEcom'), {
-  type:'line',
-  data:{ labels:MONTHS, datasets:makeDatasets(ecData['ec-total'].cur, ecData['ec-total'].prev, ecData['ec-total'].plan) },
-  options:makeOptions()
-});
-
-document.getElementById('ecomTabs').addEventListener('click', e => {
-  const btn = e.target.closest('.tab-btn'); if(!btn) return;
+renderLegend('ecLegend');
+let ecChart = initChart('chartEc', buildDatasets(SECTIONS.ec['ec-total']));
+document.getElementById('ecomTabs').addEventListener('click', e=>{
+  const btn=e.target.closest('.tab-btn'); if(!btn) return;
   document.querySelectorAll('#ecomTabs .tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const key = btn.dataset.tab;
-  const d = ecData[key];
-  ecChart.data.datasets = makeDatasets(d.cur, d.prev, d.plan);
+  ecChart.data.datasets=buildDatasets(SECTIONS.ec[btn.dataset.tab]);
   ecChart.update();
+});
+
+renderLegend('hmLegend');
+let hmChart = initChart('chartHm', buildDatasets(SECTIONS.hm['hm-total']));
+document.getElementById('huiminTabs').addEventListener('click', e=>{
+  const btn=e.target.closest('.tab-btn'); if(!btn) return;
+  document.querySelectorAll('#huiminTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  hmChart.data.datasets=buildDatasets(SECTIONS.hm[btn.dataset.tab]);
+  hmChart.update();
 });
 </script>
 </body>
