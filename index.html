@@ -12,10 +12,10 @@
   --text:#1a1714;--text2:#5c5750;--text3:#9c9690;
   /* 中国传统色 */
   --qy:#2B5F8E;   /* 群青 - 依叶今年 */
-  --zs:#D4622A;   /* 朱砂 - 氨叶今年 */
+  --zs:#4E855A;   /* 竹绿 - 氨叶今年 */
   --zl:#4E855A;   /* 竹绿 - 合计/进度 */
   --qy2:rgba(43,95,142,0.32);
-  --zs2:rgba(212,98,42,0.32);
+  --zs2:rgba(78,133,90,0.32);
   --zl2:rgba(78,133,90,0.32);
   --mj:#F5DEB3;   /* 麦秆黄 - 月度计划 */
   --ch:#C1440E;   /* 赤红 - 已完成 */
@@ -28,7 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Hiragino 
 
 /* Header */
 .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:12px;border-bottom:2px solid var(--qy);padding-bottom:16px}
-.header-left h1{font-size:21px;font-weight:700;letter-spacing:.04em;color:var(--qy)}
+.header-left h1{font-size:21px;font-weight:700;letter-spacing:.04em;color:var(--text)}
 .header-left .sub{font-size:12px;color:var(--text3);margin-top:3px;letter-spacing:.02em}
 .header-right{text-align:right}
 .date-badge{display:inline-block;background:var(--card2);border:1px solid var(--border-m);border-radius:var(--radius-s);padding:5px 14px;font-size:12px;color:var(--text2)}
@@ -62,7 +62,7 @@ body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Hiragino 
 .kpi-sep{grid-column:1/-1;height:1px;background:var(--border);margin:4px 0}
 .kpi-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em;margin-bottom:8px}
 .kpi-tag.blue{background:rgba(43,95,142,0.10);color:var(--qy)}
-.kpi-tag.red{background:rgba(212,98,42,0.10);color:var(--zs)}
+.kpi-tag.red{background:rgba(78,133,90,0.10);color:var(--zs)}
 
 /* Chart */
 .chart-row{display:grid;grid-template-columns:1fr;gap:16px;margin-top:4px}
@@ -83,7 +83,7 @@ body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Hiragino 
 .atab{padding:5px 14px;font-size:12px;border:1px solid var(--border-m);border-radius:var(--radius-s);cursor:pointer;background:var(--card);color:var(--text2);transition:all .18s;font-family:inherit;white-space:nowrap}
 .atab:hover{background:var(--hover)}
 .atab.active.blue{border-color:var(--qy);color:var(--qy);background:rgba(43,95,142,0.08)}
-.atab.active.red{border-color:var(--zs);color:var(--zs);background:rgba(212,98,42,0.08)}
+.atab.active.red{border-color:var(--zs);color:var(--zs);background:rgba(78,133,90,0.08)}
 
 .agent-layout{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
 @media(max-width:780px){.agent-layout{grid-template-columns:1fr}}
@@ -494,10 +494,10 @@ new Chart(document.getElementById('chartAnye'),{
   data:{labels:YEAR_LABELS,datasets:[
     mkBar('月度计划',anyeBars.planArr,'rgba(245,222,179,0.85)','#d4a84b'),
     mkBar('月度完成',anyeBars.doneArr,'rgba(193,68,14,0.75)','#8b2500'),
-    mkLine('今年·氨叶',anyeCur,'#D4622A',false),
-    mkLine('前年·氨叶',anyePrev,'rgba(212,98,42,0.35)',true),
+    mkLine('今年·氨叶',anyeCur,'#4E855A',false),
+    mkLine('前年·氨叶',anyePrev,'rgba(78,133,90,0.35)',true),
   ]},
-  options:makeTrendOpts('#D4622A'),
+  options:makeTrendOpts('#4E855A'),
 });
 
 // ═══════════════════════════════════════════
@@ -508,7 +508,7 @@ let currentDrug = 'yiye';
 
 function renderAgentTable(drug){
   const data = drug==='yiye' ? YIYE_AGENTS : ANYE_AGENTS;
-  const color = drug==='yiye' ? '#2B5F8E' : '#D4622A';
+  const color = drug==='yiye' ? '#2B5F8E' : '#4E855A';
   const maxYtd = Math.max(...data.map(d=>d.ytd));
   const tbody = document.getElementById('agentBody');
   tbody.innerHTML = data.map((d,i)=>{
