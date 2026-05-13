@@ -87,6 +87,20 @@ body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Hiragino 
 
 .agent-layout{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
 @media(max-width:780px){.agent-layout{grid-template-columns:1fr}}
+.subsection-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 10px}
+.subsection-title{font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.02em}
+.subsection-note{font-size:10.5px;color:var(--text3)}
+.province-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.province-panel-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.province-summary{font-size:11px;color:var(--text3);line-height:1.5;text-align:right}
+.province-table-wrap{margin-top:10px;overflow:auto;box-shadow:none}
+.province-table-wrap table{min-width:780px}
+.drop-bar{height:6px;border-radius:3px;background:var(--ch);opacity:0.68;min-width:4px}
+.risk-tag{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:600;white-space:nowrap}
+.risk-high{background:rgba(193,68,14,0.12);color:var(--ch)}
+.risk-mid{background:rgba(212,168,75,0.16);color:var(--ch-b)}
+.risk-low{background:rgba(156,150,144,0.14);color:var(--text2)}
+@media(max-width:780px){.province-panel-top{display:block}.province-summary{text-align:left;margin-top:4px}}
 
 .agent-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 table{width:100%;border-collapse:collapse;font-size:12px}
@@ -258,6 +272,34 @@ tr:hover td{background:var(--hover)}
     <button class="atab red" data-drug="anye" onclick="switchAgent('anye',this)">氨叶代理商</button>
   </div>
 
+  <div class="province-panel">
+    <div class="province-panel-top">
+      <div>
+        <div class="chart-card-title" id="provinceDropTitle">
+          <span class="dot" style="background:var(--qy)"></span>依叶 · 省份同比下滑 TOP 10
+        </div>
+        <div class="chart-note">按年度累计发货同比增长率升序排列，数据为演示口径，可后续替换为真实省份汇总。</div>
+      </div>
+      <div class="province-summary" id="provinceDropSummary">展示下滑幅度最大的省份，用于快速定位区域风险。</div>
+    </div>
+    <div class="agent-table-wrap province-table-wrap">
+      <table id="provinceDropTable">
+        <thead>
+          <tr>
+            <th>排名</th><th>省份</th><th>本年累计</th><th>同期发货</th>
+            <th>同比增减</th><th>同比增长率</th><th>下滑幅度</th><th>预警等级</th>
+          </tr>
+        </thead>
+        <tbody id="provinceDropBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection-head">
+    <div class="subsection-title">代理商任务达成明细</div>
+    <div class="subsection-note">按年度发货量与同比表现综合展示</div>
+  </div>
+
   <div class="agent-layout">
     <!-- 表格 -->
     <div class="agent-table-wrap">
@@ -332,6 +374,35 @@ const ANYE_AGENTS = [
   {rank:37, province:'江西', name:'JX',      mon:0.945, ytd:7.19,  target:0,     prev:6.12,   yoy:+1.07},
   {rank:38, province:'山西', name:'杜立亭',  mon:0,     ytd:1.50,  target:0,     prev:0,      yoy:+1.50},
   {rank:39, province:'广东', name:'GD',      mon:0.30,  ytd:6.60,  target:0,     prev:4.36,   yoy:+2.24},
+];
+
+// ═══════════════════════════════════════════
+//  省份同比下滑 TOP10（演示数据，可替换为真实省份汇总）
+// ═══════════════════════════════════════════
+const YIYE_PROVINCE_DROP = [
+  {rank:1,  province:'辽宁',   cur:3.63,  prev:9.84,  rate:-63.1},
+  {rank:2,  province:'黑龙江', cur:1.86,  prev:4.92,  rate:-62.2},
+  {rank:3,  province:'天津',   cur:2.18,  prev:5.48,  rate:-60.2},
+  {rank:4,  province:'云南',   cur:10.30, prev:18.45, rate:-44.2},
+  {rank:5,  province:'福建',   cur:13.16, prev:21.72, rate:-39.4},
+  {rank:6,  province:'重庆',   cur:14.94, prev:22.88, rate:-34.7},
+  {rank:7,  province:'山东',   cur:7.98,  prev:11.64, rate:-31.4},
+  {rank:8,  province:'浙江',   cur:23.23, prev:31.52, rate:-26.3},
+  {rank:9,  province:'北京',   cur:6.96,  prev:9.18,  rate:-24.2},
+  {rank:10, province:'湖南',   cur:7.56,  prev:9.72,  rate:-22.2},
+];
+
+const ANYE_PROVINCE_DROP = [
+  {rank:1,  province:'浙江',   cur:6.18,  prev:30.93, rate:-80.0},
+  {rank:2,  province:'安徽',   cur:0.95,  prev:2.70,  rate:-64.8},
+  {rank:3,  province:'河北',   cur:0.48,  prev:1.28,  rate:-62.5},
+  {rank:4,  province:'天津',   cur:1.04,  prev:2.31,  rate:-55.0},
+  {rank:5,  province:'广东',   cur:7.59,  prev:14.92, rate:-49.1},
+  {rank:6,  province:'福建',   cur:1.95,  prev:3.36,  rate:-42.0},
+  {rank:7,  province:'上海',   cur:3.15,  prev:5.07,  rate:-37.9},
+  {rank:8,  province:'湖南',   cur:3.35,  prev:4.96,  rate:-32.5},
+  {rank:9,  province:'云南',   cur:0.82,  prev:1.12,  rate:-26.8},
+  {rank:10, province:'重庆',   cur:1.36,  prev:1.78,  rate:-23.6},
 ];
 
 // ═══════════════════════════════════════════
@@ -506,6 +577,39 @@ new Chart(document.getElementById('chartAnye'),{
 let agentBarChart = null;
 let currentDrug = 'yiye';
 
+function riskTag(rate){
+  const abs = Math.abs(rate);
+  if(abs >= 50) return '<span class="risk-tag risk-high">重点预警</span>';
+  if(abs >= 30) return '<span class="risk-tag risk-mid">持续关注</span>';
+  return '<span class="risk-tag risk-low">一般关注</span>';
+}
+
+function renderProvinceDropTable(drug){
+  const data = drug==='yiye' ? YIYE_PROVINCE_DROP : ANYE_PROVINCE_DROP;
+  const color = drug==='yiye' ? '#2B5F8E' : '#4E855A';
+  const name = drug==='yiye' ? '依叶' : '氨叶';
+  const maxDrop = Math.max(...data.map(d=>Math.abs(d.rate)));
+  const tbody = document.getElementById('provinceDropBody');
+  document.getElementById('provinceDropTitle').innerHTML = `<span class="dot" style="background:${color}"></span>${name} · 省份同比下滑 TOP 10`;
+  const avgDrop = data.reduce((a,d)=>a+Math.abs(d.rate),0)/data.length;
+  document.getElementById('provinceDropSummary').innerHTML = `最大下滑：<strong style="color:var(--ch)">${data[0].province} ${data[0].rate.toFixed(1)}%</strong><br>TOP10 平均下滑：${avgDrop.toFixed(1)}%`;
+  tbody.innerHTML = data.map((d,i)=>{
+    const rankCls = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank';
+    const diff = +(d.cur-d.prev).toFixed(2);
+    const barW = Math.round(Math.abs(d.rate)/maxDrop*92);
+    return `<tr>
+      <td class="${rankCls}">${d.rank}</td>
+      <td class="agent-name">${d.province}</td>
+      <td><strong>${d.cur.toFixed(2)}</strong></td>
+      <td style="color:var(--text3)">${d.prev.toFixed(2)}</td>
+      <td class="val-neg">${diff.toFixed(2)}</td>
+      <td class="val-neg">${d.rate.toFixed(1)}%</td>
+      <td class="bar-cell"><div class="drop-bar" style="width:${barW}px"></div></td>
+      <td>${riskTag(d.rate)}</td>
+    </tr>`;
+  }).join('');
+}
+
 function renderAgentTable(drug){
   const data = drug==='yiye' ? YIYE_AGENTS : ANYE_AGENTS;
   const color = drug==='yiye' ? '#2B5F8E' : '#4E855A';
@@ -590,10 +694,12 @@ function switchAgent(drug, btn){
   });
   btn.classList.add('active', drug==='yiye'?'blue':'red');
   // update section mark color
+  renderProvinceDropTable(drug);
   renderAgentTable(drug);
 }
 
 // 初始渲染
+renderProvinceDropTable('yiye');
 renderAgentTable('yiye');
 </script>
 </body>
